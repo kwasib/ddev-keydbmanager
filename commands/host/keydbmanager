@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+## #ddev-generated: If you want to edit and own this file, remove this line.
+## Description: Launch a browser with KeyDB Manager
+## Usage: keydbmanager
+## Example: "ddev keydbmanager"
+
+DDEV_KEYDBMANAGER_PORT=5001
+DDEV_KEYDBMANAGER_HTTPS_PORT=5000
+
+if [ ${DDEV_PRIMARY_URL%://*} = "http" ] || [ -n "${GITPOD_WORKSPACE_ID:-}" ] || [ "${CODESPACES:-}" = "true" ]; then
+    ddev launch :$DDEV_KEYDBMANAGER_PORT
+else
+    ddev launch :$DDEV_KEYDBMANAGER_HTTPS_PORT
+fi

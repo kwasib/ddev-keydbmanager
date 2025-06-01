@@ -3,11 +3,19 @@
 [![last commit](https://img.shields.io/github/last-commit/kwasib/ddev-keydbmanager)](https://github.com/kwasib/ddev-keydbmanager/commits)
 [![release](https://img.shields.io/github/v/release/kwasib/ddev-keydbmanager)](https://github.com/kwasib/ddev-keydbmanager/releases/latest)
 
-# DDEV Keydbmanager
+# DDEV KeyDB Manager
 
 ## Overview
 
-This add-on integrates Keydbmanager into your [DDEV](https://ddev.com/) project.
+This add-on integrates KeyDB Manager into your [DDEV](https://ddev.com/) project.
+
+## Requirements
+
+Before installing this add-on, the [KeyDB service](https://github.com/ddev/ddev-keydb) must be available:
+
+```bash
+ddev add-on get ddev/ddev-keydb
+```
 
 ## Installation
 
@@ -22,6 +30,7 @@ After installation, make sure to commit the `.ddev` directory to version control
 
 | Command | Description |
 | ------- | ----------- |
+| `ddev keydbmanager` | Open KeyDB Manager in your browser (`https://<project>.ddev.site:5000`)  |
 | `ddev describe` | View service status and used ports for Keydbmanager |
 | `ddev logs -s keydbmanager` | Check Keydbmanager logs |
 
@@ -30,7 +39,7 @@ After installation, make sure to commit the `.ddev` directory to version control
 To change the Docker image:
 
 ```bash
-ddev dotenv set .ddev/.env.keydbmanager --keydbmanager-docker-image="busybox:stable"
+ddev dotenv set .ddev/.env.keydbmanager --keydbmanager-docker-image="eqalpha/keydbmanager:latest"
 ddev add-on get kwasib/ddev-keydbmanager
 ddev restart
 ```
@@ -41,7 +50,7 @@ All customization options (use with caution):
 
 | Variable | Flag | Default |
 | -------- | ---- | ------- |
-| `KEYDBMANAGER_DOCKER_IMAGE` | `--keydbmanager-docker-image` | `busybox:stable` |
+| `KEYDBMANAGER_DOCKER_IMAGE` | `--keydbmanager-docker-image` | `eqalpha/keydbmanager:latest` |
 
 ## Credits
 

@@ -3,14 +3,21 @@
 services:
   keydbmanager:
     container_name: ddev-${DDEV_SITENAME}-keydbmanager
-    image: ${KEYDBMANAGER_DOCKER_IMAGE:-busybox:stable}
-    command: tail -f /dev/null
-    restart: "no"
+    image: ${KEYDBMANAGER_DOCKER_IMAGE:-eqalpha/keydbmanager:latest}
+    expose:
+      - 5000
     # These labels ensure this service is discoverable by DDEV.
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: ${DDEV_APPROOT}
-
+    environment:
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=5001:5000
+      - HTTPS_EXPOSE=5000:5000
+      - KEYDB_HOST=keydb
+      - KEYDB_PORT=6379
     volumes:
       - ".:/mnt/ddev_config"
       - "ddev-global-cache:/mnt/ddev-global-cache"
+    depends_on:
+      - keydb
