@@ -36,20 +36,33 @@ setup() {
   assert_success
   run ddev start -y
   assert_success
+
+  # KeyDB add-on is required for KeyDB Manager
+  run ddev add-on get kwasib/ddev-keydb
+  assert_success
 }
 
 health_checks() {
-  # Do something useful here that verifies the add-on
-
-  # You can check for specific information in headers:
-  # run curl -sfI https://${PROJNAME}.ddev.site
-  # assert_output --partial "HTTP/2 200"
-  # assert_output --partial "test_header"
-
-  # Or check if some command gives expected output:
-  DDEV_DEBUG=true run ddev launch
+  run curl -sfI http://${PROJNAME}.ddev.site:5001
   assert_success
-  assert_output --partial "FULLURL https://${PROJNAME}.ddev.site"
+  assert_output --partial "HTTP/1.1 200"
+
+  run curl -sf http://${PROJNAME}.ddev.site:5001
+  assert_success
+  assert_output --partial "<title>KeyDB Manager"
+
+  run curl -skfI https://${PROJNAME}.ddev.site:5000
+  assert_success
+  assert_output --partial "HTTP/2 200"
+
+  run curl -skf https://${PROJNAME}.ddev.site:5000
+  assert_success
+  assert_output --partial "<title>KeyDB Manager"
+
+  # Make sure `ddev keydbmanager` works
+  DDEV_DEBUG=true run ddev keydbmanager
+  assert_success
+  assert_output --partial "FULLURL https://${PROJNAME}.ddev.site:5000"
 }
 
 teardown() {
