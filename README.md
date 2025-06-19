@@ -11,10 +11,10 @@ This add-on integrates KeyDB Manager into your [DDEV](https://ddev.com/) project
 
 ## Requirements
 
-Before installing this add-on, the [KeyDB service](https://github.com/ddev/ddev-keydb) must be available:
+Before installing this add-on, the [KeyDB service](https://github.com/kwasib/ddev-keydb) must be available:
 
 ```bash
-ddev add-on get ddev/ddev-keydb
+ddev add-on get kwasib/ddev-keydb
 ```
 
 ## Installation
